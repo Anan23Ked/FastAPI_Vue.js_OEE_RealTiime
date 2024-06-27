@@ -1,0 +1,39 @@
+
+services:
+
+  backend:
+    build: ./services/backend
+    
+    # ports:
+    #   - "5000:5000"
+    volumes:
+      - ./services/backend:/app
+    environment:
+      - PYTHONPATH=/app
+    # command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
+
+  frontend:
+    build: ./services/frontend/oee-vite
+    volumes:
+      - './services/frontend/oee-vite:/app'
+      - '/app/node_modules'
+    ports:
+      - "5173:5173"
+    command: npm run serve
+
+  db:
+    image: postgres:16.3
+    container_name: db
+    
+    ports:
+      - "5432:5432"
+ 
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD : 1234
+      POSTGRES_DB : OEE
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
+  
