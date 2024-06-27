@@ -26,7 +26,7 @@ def MTLINKiData(created_tables):
     if mongo_data:
         for collection in mongo_data.items():
             if collection.collection_name not in created_tables:
-                print("push to table creation")
+                print("push to table creation- add another change for reference")
                 tableCreation(collection)
             else:
                 watcher_thread = threading.Thread(target = changeLookup, args=(collection,created_tables ))
